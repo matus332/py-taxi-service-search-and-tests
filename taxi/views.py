@@ -10,7 +10,7 @@ from .forms import (
     DriverCreationForm,
     DriverLicenseUpdateForm,
     CarForm,
-    DriverLicenseSearchForm,
+    DriverUsernameSearchForm,
     CarModelSearchForm,
     ManufacturerNameSearchForm
 )
@@ -128,15 +128,15 @@ class DriverListView(LoginRequiredMixin, generic.ListView):
         self, *, object_list=..., **kwargs
     ):
         context = super().get_context_data(**kwargs)
-        context["license_number"] = DriverLicenseSearchForm()
+        context["username"] = DriverUsernameSearchForm()
         return context
 
     def get_queryset(self):
         queryset = Driver.objects.all()
-        form = DriverLicenseSearchForm(self.request.GET)
+        form = DriverUsernameSearchForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(
-                license_number__icontains=form.cleaned_data["license_number"]
+                username__icontains=form.cleaned_data["username"]
             )
         return queryset
 
@@ -159,7 +159,7 @@ class DriverLicenseUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class DriverDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Driver
-    success_url = reverse_lazy("")
+    reverse_lazy("taxi:driver-list")
 
 
 @login_required

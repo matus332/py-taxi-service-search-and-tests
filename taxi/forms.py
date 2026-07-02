@@ -52,8 +52,8 @@ def validate_license_number(
     return license_number
 
 
-class DriverLicenseSearchForm(forms.Form):
-    license_number = forms.CharField(max_length=255, required=False)
+class DriverUsernameSearchForm(forms.Form):
+    username = forms.CharField(max_length=255, required=False)
 
 
 class CarModelSearchForm(forms.Form):
