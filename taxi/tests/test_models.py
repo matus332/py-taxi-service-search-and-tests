@@ -30,7 +30,7 @@ class ModelTest(TestCase):
         )
         expected_url = reverse(
             "taxi:driver-detail",
-            kwargs={"pk":driver.pk}
+            kwargs={"pk": driver.pk}
         )
         self.assertEqual(driver.get_absolute_url(), expected_url)
 
